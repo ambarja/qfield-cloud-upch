@@ -2,7 +2,7 @@ name: Actualizar GPKG desde QFieldCloud
 
 on:
   schedule:
-    - cron: '17 20 * * 1'  # 03:17 hora Perú (UTC-5)
+    - cron: '20 20 * * 2'  # 03:20 hora Perú (UTC-5)
   workflow_dispatch:     # permite ejecutarlo manualmente también
 
 jobs:
