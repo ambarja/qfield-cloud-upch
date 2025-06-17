@@ -12,11 +12,6 @@ jobs:
   actualizar-gpkg:
     runs-on: ubuntu-latest
 
-    env:
-      QFIELD_USER: ${{ secrets.QFIELD_USER }}
-      QFIELD_PASS: ${{ secrets.QFIELD_PASS }}
-      QFIELD_PROJECT_ID: ${{ secrets.QFIELD_PROJECT_ID }}
-
     steps:
       - name: Clonar repositorio
         uses: actions/checkout@v3
@@ -35,3 +30,7 @@ jobs:
 
       - name: Ejecutar script principal
         run: python main.py
+        env:
+          QFIELD_USER: ${{ secrets.QFIELD_USER }}
+          QFIELD_PASS: ${{ secrets.QFIELD_PASS }}
+          QFIELD_PROJECT_ID: ${{ secrets.QFIELD_PROJECT_ID }}
