@@ -21,11 +21,11 @@ jobs:
       - name: Instalar Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.13.3'
 
       - name: Instalar dependencias
         run: |
-          pip install geopandas qfieldcloud-sdk pandas pytz
+          pip install geopandas qfieldcloud-sdk pandas pytz sqlite3 hashlib datetime
 
       - name: Crear carpeta de salida
         run: mkdir -p output
