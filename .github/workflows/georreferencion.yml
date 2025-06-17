@@ -34,4 +34,4 @@ jobs:
         run: mkdir -p output
 
       - name: Ejecutar script principal
-        run: python main.py
+        run: py main.py
