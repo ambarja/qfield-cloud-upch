@@ -28,7 +28,7 @@ jobs:
 
       - name: Instalar dependencias
         run: |
-          pip install geopandas qfieldcloud-sdk pandas pytz sqlite3 hashlib datetime
+          pip install geopandas qfieldcloud-sdk pandas pytz hashlib datetime
 
       - name: Crear carpeta de salida
         run: mkdir -p output
