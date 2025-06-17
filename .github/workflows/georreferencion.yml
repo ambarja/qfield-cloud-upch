@@ -43,6 +43,9 @@ jobs:
           name: archivos-generados
           path: output/
 
+      - name: Eliminar GPKG para limpieza
+        run: rm -f output/*.gpkg
+        
       - name: Hacer commit y push si hubo cambios
         run: |
           git config --global user.name "github-actions"
