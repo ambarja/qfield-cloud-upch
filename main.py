@@ -20,6 +20,7 @@ remote_path = "georreferenciacion.gpkg"
 local_path = Path("output/georreferenciacion.gpkg")
 csv_diario = Path(f"output/georreferenciacion-update-{fecha_actual_str}.csv")
 csv_maestro = Path("output/georreferenciacion-update.csv")
+os.makedirs("output", exist_ok=True)
 # Cliente QFieldCloud
 client = Client(url="https://app.qfield.cloud/api/v1/")
 client.login(username=username, password=password)
