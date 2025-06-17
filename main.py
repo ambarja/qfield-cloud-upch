@@ -66,6 +66,7 @@ if nuevos_registros:
     # Subir nuevo GPKG vacío
     client.upload_file(
         project_id=project_id,
+        upload_type=FileTransferType.PROJECT,
         local_filename=local_path,
         remote_filename=Path(remote_path),
         show_progress=True
