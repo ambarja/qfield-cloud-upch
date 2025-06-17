@@ -1,0 +1,34 @@
+name: Actualizar GPKG desde QFieldCloud
+
+on:
+  schedule:
+    - cron: '30 20 * * 1'  # 06:00 hora Perú (UTC-5)
+  workflow_dispatch:     # permite ejecutarlo manualmente también
+
+jobs:
+  actualizar-gpkg:
+    runs-on: ubuntu-latest
+
+    env:
+      QFIELD_USER: ${{ secrets.QFIELD_USER }}
+      QFIELD_PASS: ${{ secrets.QFIELD_PASS }}
+      QFIELD_PROJECT_ID: ${{ secrets.QFIELD_PROJECT_ID }}
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar dependencias
+        run: |
+          pip install geopandas qfieldcloud-sdk pandas pytz
+
+      - name: Crear carpeta de salida
+        run: mkdir -p output
+
+      - name: Ejecutar script principal
+        run: python actualizar_gpkg.py
