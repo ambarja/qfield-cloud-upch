@@ -5,9 +5,9 @@ on:
     branches:
       - main
   schedule:
-    - cron: '30 20 * * 1'
+    - cron: '30 20 * * 1'  # Lunes 15:30 hora Perú
   workflow_dispatch:
-  
+
 jobs:
   actualizar-gpkg:
     runs-on: ubuntu-latest
@@ -15,15 +15,17 @@ jobs:
     steps:
       - name: Clonar repositorio
         uses: actions/checkout@v3
+        with:
+          persist-credentials: true  # ⬅️ necesario para permitir git push
 
       - name: Instalar Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.13.3'
+          python-version: '3.10'
 
       - name: Instalar dependencias
         run: |
-          pip install geopandas qfieldcloud-sdk pandas pytz 
+          pip install geopandas qfieldcloud-sdk pandas pytz
 
       - name: Crear carpeta de salida
         run: mkdir -p output
@@ -34,8 +36,23 @@ jobs:
           QFIELD_USER: ${{ secrets.QFIELD_USER }}
           QFIELD_PASS: ${{ secrets.QFIELD_PASS }}
           QFIELD_PROJECT_ID: ${{ secrets.QFIELD_PROJECT_ID }}
+
       - name: Guardar archivos como artifact
         uses: actions/upload-artifact@v4
         with:
-            name: archivos-generados
-            path: output/
+          name: archivos-generados
+          path: output/
+
+      - name: Hacer commit y push si hubo cambios
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add output/
+
+          if git diff --cached --quiet; then
+            echo "✅ No hay cambios para commitear."
+          else
+            git commit -m "🔄 Actualización automática desde QFieldCloud - $(date -u +"%Y-%m-%d %H:%M:%S")"
+            git push origin main
+            echo "🚀 Cambios subidos al repositorio."
+          fi
