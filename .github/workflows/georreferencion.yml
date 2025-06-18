@@ -2,7 +2,7 @@ name: 🔄 Actualizar base de datos desde QFieldCloud ☁︎
 
 on:
   schedule:
-    - cron: '40 16 * * *'  # 11:40 AM todo los días hora Perú
+    - cron: '45 11 * * *'  # 11:40 AM todo los días hora Perú
 
 jobs:
   actualizar-gpkg:
