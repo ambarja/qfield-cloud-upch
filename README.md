@@ -1,2 +1,1 @@
-# qfield-cloud-upch
 [![🔄 Actualizar base de datos desde QFieldCloud ☁︎](https://github.com/ambarja/qfield-cloud-upch/actions/workflows/georreferencion.yml/badge.svg)](https://github.com/ambarja/qfield-cloud-upch/actions/workflows/georreferencion.yml)
