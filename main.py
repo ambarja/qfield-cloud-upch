@@ -10,7 +10,8 @@ import sqlite3
 # Configuración
 username = os.environ["QFIELD_USER"]
 password = os.environ["QFIELD_PASS"]
-project_id = os.environ["QFIELD_PROJECT_ID"]
+
+project_id = '35d0da54-1b25-40c2-bde6-e278e5d29177'#os.environ["QFIELD_PROJECT_ID"]
 
 fecha_actual = datetime.date.today()
 fecha_actual_str = fecha_actual.strftime("%Y-%m-%d")
@@ -18,7 +19,7 @@ fecha_actual_str = fecha_actual.strftime("%Y-%m-%d")
 # Rutas
 remote_path = "georreferenciacion.gpkg"
 local_path = Path("output/georreferenciacion.gpkg")
-csv_diario = Path(f"output/georreferenciacion-update-{fecha_actual_str}.csv")
+csv_diario = Path(f"output/georreferenciacion-update.csv")
 csv_maestro = Path("output/georreferenciacion-update.csv")
 os.makedirs("output", exist_ok=True)
 # Cliente QFieldCloud
@@ -27,15 +28,15 @@ client.login(username=username, password=password)
 
 # Descargar archivo GPKG desde QFieldCloud
 client.download_file(
-    project_id=project_id,
-    download_type=FileTransferType.PROJECT,
-    local_filename=local_path,
-    remote_filename=Path(remote_path),
-    show_progress=True
+    project_id = project_id,
+    download_type = FileTransferType.PROJECT,
+    local_filename = local_path,
+    remote_filename = Path(remote_path),
+    show_progress = True
 )
 
 # Leer datos y limpiar
-gpkg_file = gpd.read_file(local_path, layer='georreferenciacion').dropna()
+gpkg_file = gpd.read_file(local_path, layer='georreferenciacion')
 gpkg_file_nogeom = gpkg_file.drop(columns='geometry')
 gpkg_file_nogeom['fecha_peru'] = pd.to_datetime(gpkg_file_nogeom['fecha'], utc=True).dt.tz_convert('America/Lima')
 csv_nuevo = gpkg_file_nogeom.drop(columns='fecha')
